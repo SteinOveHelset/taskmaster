@@ -1,0 +1,30 @@
+{% extends 'task/base.html' %}
+
+{% block content %}
+    <div class="p-4 mb-6 bg-teal-200">
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="mt-4 py-2 px-6 bg-teal-800 text-white">Submit</button>
+        </form>
+    </div>
+
+    <div class="space-y-4">
+        {% for task in tasks %}
+            <div class="p-4 bg-teal-400">
+                <h2 class="text-xl">{{ task.title }}</h2>
+
+                <p>
+                    {{ task.description }}
+                </p>
+
+                <div class="mt-6 flex flex-row items-center space-x-4">
+                    <a href="{% url 'mark_as_done' task.id %}" class="py-2 px-6 bg-teal-800 text-white">Mark as done</a>
+                    <a href="{% url 'delete_task' task.id %}" class="py-2 px-6 bg-amber-800 text-white">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
